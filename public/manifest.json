@@ -1,0 +1,17 @@
+{
+    "name": "DentalTrack Scanner",
+    "short_name": "DentalTrack",
+    "description": "QR-based production tracking for dental labs",
+    "start_url": "/scan",
+    "display": "standalone",
+    "background_color": "#f3f4f6",
+    "theme_color": "#2563eb",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "64x64",
+            "type": "image/x-icon"
+        }
+    ]
+}
