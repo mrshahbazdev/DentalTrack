@@ -70,6 +70,7 @@
                             <th class="px-4 py-3 text-left font-medium text-gray-600">Current Station</th>
                             <th class="px-4 py-3 text-left font-medium text-gray-600">Technician</th>
                             <th class="px-4 py-3 text-left font-medium text-gray-600">Priority</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">ETA</th>
                             <th class="px-4 py-3 text-left font-medium text-gray-600">Progress</th>
                         </tr>
                     </thead>
@@ -102,6 +103,15 @@
                                     </span>
                                 </td>
                                 <td class="px-4 py-3">
+                                    @if($order->predicted_completion_at)
+                                        <span class="text-xs {{ $order->predicted_completion_at->isPast() ? 'text-red-600 font-bold' : 'text-blue-600' }}">
+                                            {{ $order->predicted_completion_at->format('M d, H:i') }}
+                                        </span>
+                                    @else
+                                        <span class="text-xs text-gray-400">-</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
                                     <div class="flex items-center gap-2">
                                         <div class="w-24 bg-gray-200 rounded-full h-2">
                                             <div class="bg-blue-600 h-2 rounded-full" style="width: {{ $order->progressPercentage() }}%"></div>
@@ -112,7 +122,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-4 py-8 text-center text-gray-400">No orders in progress</td>
+                                <td colspan="7" class="px-4 py-8 text-center text-gray-400">No orders in progress</td>
                             </tr>
                         @endforelse
                     </tbody>
