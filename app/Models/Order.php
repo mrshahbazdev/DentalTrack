@@ -21,6 +21,7 @@ class Order extends Model
         'patient_ref',
         'doctor_name',
         'qr_code',
+        'tracking_code',
         'priority',
         'due_date',
         'status',
@@ -42,6 +43,9 @@ class Order extends Model
         static::creating(function (Order $order) {
             if (empty($order->qr_code)) {
                 $order->qr_code = 'ORD-'.Str::ulid();
+            }
+            if (empty($order->tracking_code)) {
+                $order->tracking_code = strtoupper(Str::random(8));
             }
         });
     }
@@ -74,6 +78,11 @@ class Order extends Model
     public function predictions(): HasMany
     {
         return $this->hasMany(Prediction::class);
+    }
+
+    public function reworkEvents(): HasMany
+    {
+        return $this->hasMany(ReworkEvent::class);
     }
 
     public function currentStep(): ?OrderStep

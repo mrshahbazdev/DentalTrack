@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $sort_order
+ */
 class OrderStep extends Model
 {
     use HasFactory;
@@ -49,5 +52,10 @@ class OrderStep extends Model
     public function totalDurationSeconds(): int
     {
         return (int) $this->scanEvents()->sum('duration_seconds');
+    }
+
+    public function reworkEvents(): HasMany
+    {
+        return $this->hasMany(ReworkEvent::class);
     }
 }
