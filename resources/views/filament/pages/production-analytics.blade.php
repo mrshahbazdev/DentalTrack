@@ -140,8 +140,8 @@
         <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 p-6">
             <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Daily Throughput (Orders Completed)</h3>
             @php $throughput = $this->getThroughputByDay(); @endphp
-            @if ($throughput->isNotEmpty())
-                @php $maxCount = $throughput->max('count') ?: 1; @endphp
+            @if (count($throughput) > 0)
+                @php $maxCount = collect($throughput)->max('count') ?: 1; @endphp
                 <div class="flex items-end gap-1 h-40">
                     @foreach ($throughput as $day)
                         <div class="flex-1 flex flex-col items-center gap-1">
