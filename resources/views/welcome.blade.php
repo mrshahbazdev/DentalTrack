@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ur' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DentalTrack — QR-Based Production Tracking</title>
+    <title>{{ __('landing.title') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     <style>
@@ -14,7 +14,7 @@
         .navbar { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
         .navbar-brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: #1e40af; text-decoration: none; }
         .navbar-brand svg { width: 32px; height: 32px; }
-        .navbar-links { display: flex; gap: 1rem; align-items: center; }
+        .navbar-links { display: flex; gap: 0.75rem; align-items: center; }
         .navbar-links a { text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; font-size: 0.875rem; transition: all 0.2s; }
         .btn-outline { color: #1e40af; border: 1px solid #1e40af; }
         .btn-outline:hover { background: #1e40af; color: #fff; }
@@ -22,6 +22,10 @@
         .btn-primary:hover { background: #1e3a8a; }
         .btn-track { background: #059669; color: #fff; }
         .btn-track:hover { background: #047857; }
+        .lang-switch { display: flex; gap: 0.25rem; align-items: center; margin-left: 0.5rem; padding-left: 0.75rem; border-left: 1px solid #e2e8f0; }
+        .lang-switch a { padding: 0.3rem 0.6rem; font-size: 0.8rem; border-radius: 6px; color: #64748b; border: 1px solid transparent; }
+        .lang-switch a:hover { color: #1e40af; border-color: #93c5fd; }
+        .lang-switch a.active { background: #1e40af; color: #fff; font-weight: 600; }
 
         /* Hero */
         .hero { padding: 5rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%); }
@@ -66,11 +70,16 @@
         /* Footer */
         .footer { padding: 2rem; text-align: center; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: 0.875rem; }
 
+        /* RTL adjustments */
+        [dir="rtl"] .lang-switch { margin-left: 0; margin-right: 0.5rem; padding-left: 0; padding-right: 0.75rem; border-left: none; border-right: 1px solid #e2e8f0; }
+
         @media (max-width: 640px) {
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1rem; }
-            .navbar-links { gap: 0.5rem; }
+            .navbar { flex-wrap: wrap; gap: 0.5rem; }
+            .navbar-links { gap: 0.5rem; flex-wrap: wrap; }
             .navbar-links a { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+            .lang-switch a { padding: 0.25rem 0.5rem; font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -85,84 +94,88 @@
             DentalTrack
         </a>
         <div class="navbar-links">
-            <a href="{{ url('/track') }}" class="btn-track">Track Order</a>
-            <a href="{{ url('/scan') }}" class="btn-outline">Scan QR</a>
-            <a href="{{ url('/admin') }}" class="btn-primary">Admin Panel</a>
+            <a href="{{ url('/track') }}" class="btn-track">{{ __('landing.track_order') }}</a>
+            <a href="{{ url('/scan') }}" class="btn-outline">{{ __('landing.scan_qr') }}</a>
+            <a href="{{ url('/admin') }}" class="btn-primary">{{ __('landing.admin_panel') }}</a>
+            <div class="lang-switch">
+                <a href="?lang=en" class="{{ app()->getLocale() === 'en' ? 'active' : '' }}">EN</a>
+                <a href="?lang=ur" class="{{ app()->getLocale() === 'ur' ? 'active' : '' }}">اردو</a>
+            </div>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Smart Production Tracking<br>for <span>Dental Labs</span></h1>
-        <p>QR code-based real-time tracking system for dental laboratories. Scan, track, and analyze every step of the production process — from impression to delivery.</p>
+        <h1>{{ __('landing.hero_title_1') }}<br>{{ __('landing.hero_title_2') }} <span>{{ __('landing.hero_title_3') }}</span></h1>
+        <p>{{ __('landing.hero_desc') }}</p>
         <div class="hero-buttons">
-            <a href="{{ url('/admin') }}" class="btn-primary" style="background:#1e40af;color:#fff;">Open Dashboard</a>
-            <a href="{{ url('/track') }}" class="btn-track" style="background:#059669;color:#fff;">Track Your Order</a>
-            <a href="{{ url('/scan') }}" class="btn-outline" style="color:#1e40af;border:2px solid #1e40af;">Start Scanning</a>
+            <a href="{{ url('/admin') }}" class="btn-primary" style="background:#1e40af;color:#fff;">{{ __('landing.open_dashboard') }}</a>
+            <a href="{{ url('/track') }}" class="btn-track" style="background:#059669;color:#fff;">{{ __('landing.track_your_order') }}</a>
+            <a href="{{ url('/scan') }}" class="btn-outline" style="color:#1e40af;border:2px solid #1e40af;">{{ __('landing.start_scanning') }}</a>
         </div>
     </section>
 
     <!-- Features -->
     <section class="features">
-        <h2>Everything You Need</h2>
-        <p class="subtitle">Complete production management for modern dental laboratories</p>
+        <h2>{{ __('landing.features_title') }}</h2>
+        <p class="subtitle">{{ __('landing.features_subtitle') }}</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon icon-blue">&#x1F4F1;</div>
-                <h3>QR Code Scanning</h3>
-                <p>Scan order and workstation QR codes with any smartphone browser. No app installation needed — works as a PWA.</p>
+                <h3>{{ __('landing.feat_qr_title') }}</h3>
+                <p>{{ __('landing.feat_qr_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-green">&#x1F4CA;</div>
-                <h3>Live Dashboard</h3>
-                <p>Real-time order board with WebSocket updates. See in-progress, pending, and overdue orders at a glance.</p>
+                <h3>{{ __('landing.feat_dashboard_title') }}</h3>
+                <p>{{ __('landing.feat_dashboard_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-purple">&#x1F916;</div>
-                <h3>AI Predictions</h3>
-                <p>Weighted historical average model predicts completion times. Smart suggestions for bottleneck detection and optimal routing.</p>
+                <h3>{{ __('landing.feat_ai_title') }}</h3>
+                <p>{{ __('landing.feat_ai_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-orange">&#x1F4C8;</div>
-                <h3>Analytics & Reports</h3>
-                <p>Employee performance, production analytics, company comparison, and exportable reports in Excel/CSV format.</p>
+                <h3>{{ __('landing.feat_analytics_title') }}</h3>
+                <p>{{ __('landing.feat_analytics_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-red">&#x1F6E1;&#xFE0F;</div>
-                <h3>Quality Control</h3>
-                <p>Flag failed QC steps, track rework causes, and monitor technician quality metrics with the QC dashboard.</p>
+                <h3>{{ __('landing.feat_qc_title') }}</h3>
+                <p>{{ __('landing.feat_qc_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-teal">&#x1F310;</div>
-                <h3>Customer Portal</h3>
-                <p>Doctors and clinics can track their orders online using a simple tracking code. Multi-language support with Urdu and English.</p>
+                <h3>{{ __('landing.feat_portal_title') }}</h3>
+                <p>{{ __('landing.feat_portal_desc') }}</p>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
     <section class="how-it-works">
-        <h2>How It Works</h2>
+        <h2>{{ __('landing.how_title') }}</h2>
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
-                <h3>Create Order</h3>
-                <p>Lab manager creates an order with patient info, product type, and due date. QR code is auto-generated.</p>
+                <h3>{{ __('landing.step1_title') }}</h3>
+                <p>{{ __('landing.step1_desc') }}</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <h3>Print QR Stickers</h3>
-                <p>Print small QR stickers for orders and large ones for workstations. Compatible with thermal printers.</p>
+                <h3>{{ __('landing.step2_title') }}</h3>
+                <p>{{ __('landing.step2_desc') }}</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <h3>Scan & Track</h3>
-                <p>Technicians scan workstation QR, then order QR. Start, pause, or complete work with one tap.</p>
+                <h3>{{ __('landing.step3_title') }}</h3>
+                <p>{{ __('landing.step3_desc') }}</p>
             </div>
             <div class="step">
                 <div class="step-number">4</div>
-                <h3>Monitor & Deliver</h3>
-                <p>Management tracks progress in real-time. AI predicts completion. Doctors get updates via the portal.</p>
+                <h3>{{ __('landing.step4_title') }}</h3>
+                <p>{{ __('landing.step4_desc') }}</p>
             </div>
         </div>
     </section>
@@ -172,26 +185,26 @@
         <div class="stats-grid">
             <div class="stat">
                 <h3>4</h3>
-                <p>User Roles</p>
+                <p>{{ __('landing.stat_roles') }}</p>
             </div>
             <div class="stat">
                 <h3>7</h3>
-                <p>Dashboard Pages</p>
+                <p>{{ __('landing.stat_dashboards') }}</p>
             </div>
             <div class="stat">
                 <h3>19</h3>
-                <p>Automated Tests</p>
+                <p>{{ __('landing.stat_tests') }}</p>
             </div>
             <div class="stat">
                 <h3>2</h3>
-                <p>Languages</p>
+                <p>{{ __('landing.stat_languages') }}</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; {{ date('Y') }} DentalTrack — QR-Based Production Tracking System for Dental Labs</p>
+        <p>&copy; {{ date('Y') }} {{ __('landing.footer') }}</p>
     </footer>
 </body>
 </html>
