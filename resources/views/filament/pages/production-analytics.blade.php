@@ -139,7 +139,7 @@
         {{-- Throughput Trend --}}
         <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 p-6">
             <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">{{ __('app.analytics.daily_throughput') }}</h3>
-            @php $throughput = $this->getThroughputByDay(); @endphp
+            @php $throughput = collect($this->getThroughputByDay()); @endphp
             @if ($throughput->isNotEmpty())
                 @php $maxCount = $throughput->max('count') ?: 1; @endphp
                 <div class="flex items-end gap-1 h-40">
