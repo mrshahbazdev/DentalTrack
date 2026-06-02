@@ -18,12 +18,13 @@ class StickerPdfService
     {
         $order->load('productType');
 
-        $qrImage = $this->qrCodeService->generateBase64Image($order->qrUrl(), 150);
+        $qrImage = $this->qrCodeService->generateBase64Image($order->qrUrl(), 120);
 
         $pdf = Pdf::loadView('pdf.order-sticker', [
             'order' => $order,
             'qrImage' => $qrImage,
-        ])->setPaper([0, 0, 70.87, 42.52], 'portrait'); // ~25x15mm
+        ])->setPaper([0, 0, 141.73, 113.39], 'portrait') // ~50x40mm
+            ->setOption(['isHtml5ParserEnabled' => true]);
 
         $output = $pdf->output();
 
@@ -36,12 +37,13 @@ class StickerPdfService
 
     public function generateWorkstationSticker(Workstation $workstation): StreamedResponse
     {
-        $qrImage = $this->qrCodeService->generateBase64Image($workstation->qrUrl(), 250);
+        $qrImage = $this->qrCodeService->generateBase64Image($workstation->qrUrl(), 150);
 
         $pdf = Pdf::loadView('pdf.workstation-sticker', [
             'workstation' => $workstation,
             'qrImage' => $qrImage,
-        ])->setPaper([0, 0, 141.73, 141.73], 'portrait'); // ~50x50mm
+        ])->setPaper([0, 0, 170.08, 170.08], 'portrait') // ~60x60mm
+            ->setOption(['isHtml5ParserEnabled' => true]);
 
         $output = $pdf->output();
 
@@ -68,7 +70,8 @@ class StickerPdfService
 
         $pdf = Pdf::loadView('pdf.batch-order-stickers', [
             'stickers' => $stickers,
-        ])->setPaper('a4', 'portrait');
+        ])->setPaper('a4', 'portrait')
+            ->setOption(['isHtml5ParserEnabled' => true]);
 
         $output = $pdf->output();
 
