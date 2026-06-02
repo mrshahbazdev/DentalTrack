@@ -30,6 +30,41 @@ class QrScanner extends Component
 
     public string $successMessage = '';
 
+    public function mount(?string $uuid = null): void
+    {
+        if ($uuid === null) {
+            return;
+        }
+
+        $workstation = Workstation::where('qr_code', $uuid)->first();
+        if ($workstation !== null) {
+            if (! $workstation->is_active) {
+                $this->errorMessage = 'This workstation is not active.';
+
+                return;
+            }
+            $this->workstationId = $workstation->id;
+            $this->workstationName = $workstation->name;
+            $this->step = 'scan_order';
+
+            return;
+        }
+
+        $order = Order::where('qr_code', $uuid)->with(['productType'])->first();
+        if ($order !== null) {
+            $this->orderId = $order->id;
+            $productName = $order->productType->name ?? '';
+            $this->orderInfo = "Order #{$order->id} — {$productName}";
+            $currentStep = $order->currentStep();
+            $this->currentStepName = $currentStep !== null ? $currentStep->step_name : 'All steps completed';
+            $this->step = 'confirm_action';
+
+            return;
+        }
+
+        $this->errorMessage = 'QR code not recognized.';
+    }
+
     public function processQrCode(string $qrData): void
     {
         $this->errorMessage = '';
