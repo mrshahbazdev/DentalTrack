@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DentalTrack — QR-Based Production Tracking</title>
+    <title>DentalTrack — QR-basierte Produktionsverfolgung</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     <style>
@@ -85,84 +85,84 @@
             DentalTrack
         </a>
         <div class="navbar-links">
-            <a href="{{ url('/track') }}" class="btn-track">Track Order</a>
-            <a href="{{ url('/scan') }}" class="btn-outline">Scan QR</a>
-            <a href="{{ url('/admin') }}" class="btn-primary">Admin Panel</a>
+            <a href="{{ url('/track') }}" class="btn-track">Auftrag verfolgen</a>
+            <a href="{{ url('/scan') }}" class="btn-outline">QR scannen</a>
+            <a href="{{ url('/admin') }}" class="btn-primary">Admin-Bereich</a>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Smart Production Tracking<br>for <span>Dental Labs</span></h1>
-        <p>QR code-based real-time tracking system for dental laboratories. Scan, track, and analyze every step of the production process — from impression to delivery.</p>
+        <h1>Intelligente Produktionsverfolgung<br>fuer <span>Dentallabore</span></h1>
+        <p>QR-Code-basiertes Echtzeit-Tracking-System fuer Dentallabore. Scannen, verfolgen und analysieren Sie jeden Schritt des Produktionsprozesses — vom Abdruck bis zur Lieferung.</p>
         <div class="hero-buttons">
-            <a href="{{ url('/admin') }}" class="btn-primary" style="background:#1e40af;color:#fff;">Open Dashboard</a>
-            <a href="{{ url('/track') }}" class="btn-track" style="background:#059669;color:#fff;">Track Your Order</a>
-            <a href="{{ url('/scan') }}" class="btn-outline" style="color:#1e40af;border:2px solid #1e40af;">Start Scanning</a>
+            <a href="{{ url('/admin') }}" class="btn-primary" style="background:#1e40af;color:#fff;">Dashboard oeffnen</a>
+            <a href="{{ url('/track') }}" class="btn-track" style="background:#059669;color:#fff;">Auftrag verfolgen</a>
+            <a href="{{ url('/scan') }}" class="btn-outline" style="color:#1e40af;border:2px solid #1e40af;">Scannen starten</a>
         </div>
     </section>
 
     <!-- Features -->
     <section class="features">
-        <h2>Everything You Need</h2>
-        <p class="subtitle">Complete production management for modern dental laboratories</p>
+        <h2>Alles was Sie brauchen</h2>
+        <p class="subtitle">Komplettes Produktionsmanagement fuer moderne Dentallabore</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon icon-blue">&#x1F4F1;</div>
-                <h3>QR Code Scanning</h3>
-                <p>Scan order and workstation QR codes with any smartphone browser. No app installation needed — works as a PWA.</p>
+                <h3>QR-Code-Scannen</h3>
+                <p>Scannen Sie Auftrags- und Arbeitsstations-QR-Codes mit jedem Smartphone-Browser. Keine App-Installation noetig — funktioniert als PWA.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-green">&#x1F4CA;</div>
-                <h3>Live Dashboard</h3>
-                <p>Real-time order board with WebSocket updates. See in-progress, pending, and overdue orders at a glance.</p>
+                <h3>Live-Dashboard</h3>
+                <p>Echtzeit-Auftragstafel mit WebSocket-Updates. Sehen Sie laufende, ausstehende und ueberfaellige Auftraege auf einen Blick.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-purple">&#x1F916;</div>
-                <h3>AI Predictions</h3>
-                <p>Weighted historical average model predicts completion times. Smart suggestions for bottleneck detection and optimal routing.</p>
+                <h3>KI-Prognosen</h3>
+                <p>Gewichtetes historisches Durchschnittsmodell sagt Fertigstellungszeiten voraus. Intelligente Vorschlaege zur Engpasserkennung und optimalen Weiterleitung.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-orange">&#x1F4C8;</div>
-                <h3>Analytics & Reports</h3>
-                <p>Employee performance, production analytics, company comparison, and exportable reports in Excel/CSV format.</p>
+                <h3>Analysen & Berichte</h3>
+                <p>Mitarbeiterleistung, Produktionsanalysen, Firmenvergleich und exportierbare Berichte im Excel/CSV-Format.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-red">&#x1F6E1;&#xFE0F;</div>
-                <h3>Quality Control</h3>
-                <p>Flag failed QC steps, track rework causes, and monitor technician quality metrics with the QC dashboard.</p>
+                <h3>Qualitaetskontrolle</h3>
+                <p>Markieren Sie fehlgeschlagene QK-Schritte, verfolgen Sie Nacharbeitsursachen und ueberwachen Sie Technikerqualitaet mit dem QK-Dashboard.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-teal">&#x1F310;</div>
-                <h3>Customer Portal</h3>
-                <p>Doctors and clinics can track their orders online using a simple tracking code. Multi-language support with Urdu and English.</p>
+                <h3>Kundenportal</h3>
+                <p>Aerzte und Kliniken koennen ihre Auftraege online mit einem einfachen Tracking-Code verfolgen. Mehrsprachige Unterstuetzung.</p>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
     <section class="how-it-works">
-        <h2>How It Works</h2>
+        <h2>So funktioniert es</h2>
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
-                <h3>Create Order</h3>
-                <p>Lab manager creates an order with patient info, product type, and due date. QR code is auto-generated.</p>
+                <h3>Auftrag erstellen</h3>
+                <p>Der Laborleiter erstellt einen Auftrag mit Patientendaten, Produkttyp und Faelligkeitsdatum. Der QR-Code wird automatisch generiert.</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <h3>Print QR Stickers</h3>
-                <p>Print small QR stickers for orders and large ones for workstations. Compatible with thermal printers.</p>
+                <h3>QR-Sticker drucken</h3>
+                <p>Drucken Sie kleine QR-Sticker fuer Auftraege und grosse fuer Arbeitsstationen. Kompatibel mit Thermodruckern.</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <h3>Scan & Track</h3>
-                <p>Technicians scan workstation QR, then order QR. Start, pause, or complete work with one tap.</p>
+                <h3>Scannen & Verfolgen</h3>
+                <p>Techniker scannen den Arbeitsstations-QR, dann den Auftrags-QR. Arbeit starten, pausieren oder abschliessen mit einem Tipp.</p>
             </div>
             <div class="step">
                 <div class="step-number">4</div>
-                <h3>Monitor & Deliver</h3>
-                <p>Management tracks progress in real-time. AI predicts completion. Doctors get updates via the portal.</p>
+                <h3>Ueberwachen & Liefern</h3>
+                <p>Das Management verfolgt den Fortschritt in Echtzeit. KI sagt die Fertigstellung voraus. Aerzte erhalten Updates ueber das Portal.</p>
             </div>
         </div>
     </section>
@@ -172,26 +172,26 @@
         <div class="stats-grid">
             <div class="stat">
                 <h3>4</h3>
-                <p>User Roles</p>
+                <p>Benutzerrollen</p>
             </div>
             <div class="stat">
                 <h3>7</h3>
-                <p>Dashboard Pages</p>
+                <p>Dashboard-Seiten</p>
             </div>
             <div class="stat">
                 <h3>19</h3>
-                <p>Automated Tests</p>
+                <p>Automatisierte Tests</p>
             </div>
             <div class="stat">
                 <h3>2</h3>
-                <p>Languages</p>
+                <p>Sprachen</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; {{ date('Y') }} DentalTrack — QR-Based Production Tracking System for Dental Labs</p>
+        <p>&copy; {{ date('Y') }} DentalTrack — QR-basiertes Produktionsverfolgungssystem fuer Dentallabore</p>
     </footer>
 </body>
 </html>
