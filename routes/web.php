@@ -12,7 +12,7 @@ Route::get('/', function () {
 });
 
 Route::get('/scan/{uuid?}', QrScanner::class)
-    ->middleware(['auth', 'throttle:scan'])
+    ->middleware([SetLocale::class, 'auth', 'throttle:scan'])
     ->name('scan');
 
 Route::get('/track', CustomerPortal::class)
