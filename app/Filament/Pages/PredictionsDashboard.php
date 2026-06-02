@@ -15,9 +15,15 @@ class PredictionsDashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-cpu-chip';
 
-    protected static ?string $navigationLabel = 'Prognosen';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.nav.predictions');
+    }
 
-    protected static ?string $navigationGroup = 'Analysen';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.nav.analytics');
+    }
 
     protected static ?int $navigationSort = 14;
 

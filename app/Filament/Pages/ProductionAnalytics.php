@@ -16,9 +16,15 @@ class ProductionAnalytics extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static ?string $navigationLabel = 'Produktionsanalyse';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.nav.production_analytics');
+    }
 
-    protected static ?string $navigationGroup = 'Analysen';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.nav.analytics');
+    }
 
     protected static ?int $navigationSort = 11;
 

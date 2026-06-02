@@ -16,7 +16,10 @@ class ProductTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
-    protected static ?string $navigationGroup = 'Production';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.resource.production');
+    }
 
     protected static ?int $navigationSort = 1;
 

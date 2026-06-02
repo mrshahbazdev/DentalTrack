@@ -23,7 +23,10 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static ?string $navigationGroup = 'Produktion';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.resource.production');
+    }
 
     protected static ?int $navigationSort = 3;
 

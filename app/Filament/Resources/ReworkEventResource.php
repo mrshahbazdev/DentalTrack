@@ -18,9 +18,15 @@ class ReworkEventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-path';
 
-    protected static ?string $navigationGroup = 'Quality Control';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.nav.quality_control');
+    }
 
-    protected static ?string $navigationLabel = 'Rework Events';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.quality.recent_reworks');
+    }
 
     protected static ?int $navigationSort = 20;
 

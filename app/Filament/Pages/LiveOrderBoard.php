@@ -12,9 +12,15 @@ class LiveOrderBoard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-tv';
 
-    protected static ?string $navigationLabel = 'Live-Auftragsboard';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.nav.live_order_board');
+    }
 
-    protected static ?string $title = 'Live-Auftragsboard';
+    public function getTitle(): string
+    {
+        return __('app.nav.live_order_board');
+    }
 
     protected static ?int $navigationSort = -1;
 
