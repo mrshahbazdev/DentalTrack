@@ -22,6 +22,10 @@
         .btn-primary:hover { background: #1e3a8a; }
         .btn-track { background: #059669; color: #fff; }
         .btn-track:hover { background: #047857; }
+        .lang-switcher { display: flex; gap: 0.25rem; align-items: center; margin-left: 0.5rem; padding-left: 0.75rem; border-left: 1px solid #e2e8f0; }
+        .lang-switcher a { text-decoration: none; padding: 0.25rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #64748b; transition: all 0.2s; }
+        .lang-switcher a:hover { background: #f1f5f9; color: #1e40af; }
+        .lang-switcher a.active { background: #dbeafe; color: #1e40af; }
 
         /* Hero */
         .hero { padding: 5rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%); }
@@ -88,6 +92,11 @@
             <a href="{{ url('/track') }}" class="btn-track">Auftrag verfolgen</a>
             <a href="{{ url('/scan') }}" class="btn-outline">QR scannen</a>
             <a href="{{ url('/admin') }}" class="btn-primary">Admin-Bereich</a>
+            <div class="lang-switcher">
+                <a href="?lang=de" class="{{ app()->getLocale() === 'de' ? 'active' : '' }}">DE</a>
+                <a href="?lang=en" class="{{ app()->getLocale() === 'en' ? 'active' : '' }}">EN</a>
+                <a href="?lang=ur" class="{{ app()->getLocale() === 'ur' ? 'active' : '' }}">اردو</a>
+            </div>
         </div>
     </nav>
 

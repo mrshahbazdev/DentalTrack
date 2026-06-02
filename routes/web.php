@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware(SetLocale::class);
 
 Route::get('/scan/{uuid?}', QrScanner::class)
     ->middleware([SetLocale::class, 'auth', 'throttle:scan'])
