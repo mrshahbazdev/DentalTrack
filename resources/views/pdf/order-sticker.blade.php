@@ -2,13 +2,14 @@
 <html>
 <head>
     <style>
-        body { margin: 0; padding: 2mm; font-family: Arial, sans-serif; font-size: 8pt; }
-        .sticker { text-align: center; }
-        .qr { margin-bottom: 1mm; }
-        .qr img { width: 15mm; height: 15mm; }
-        .order-num { font-weight: bold; font-size: 7pt; }
-        .patient-ref { font-size: 6pt; color: #555; }
-        .product-type { font-size: 6pt; color: #333; }
+        @page { margin: 0; }
+        body { margin: 0; padding: 1mm; font-family: Arial, sans-serif; font-size: 8pt; text-align: center; }
+        .sticker { text-align: center; page-break-inside: avoid; }
+        .qr { margin-bottom: 0.5mm; }
+        .qr img { width: 12mm; height: 12mm; }
+        .order-num { font-weight: bold; font-size: 6pt; line-height: 1.1; }
+        .patient-ref { font-size: 5pt; color: #555; line-height: 1.1; }
+        .product-type { font-size: 5pt; color: #333; line-height: 1.1; }
     </style>
 </head>
 <body>
