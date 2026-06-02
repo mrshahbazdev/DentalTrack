@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DentalTrack — QR-basierte Produktionsverfolgung</title>
+    <title>{{ __('app.landing.title') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     <style>
@@ -70,11 +70,38 @@
         /* Footer */
         .footer { padding: 2rem; text-align: center; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: 0.875rem; }
 
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
-            .navbar-links { gap: 0.5rem; }
-            .navbar-links a { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+        /* Hamburger button */
+        .navbar-toggle { display: none; background: none; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.4rem 0.5rem; cursor: pointer; color: #1e40af; }
+        .navbar-toggle svg { width: 24px; height: 24px; display: block; }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0.75rem 1rem; flex-wrap: wrap; }
+            .navbar-toggle { display: block; }
+            .navbar-links { display: none; flex-direction: column; width: 100%; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid #e2e8f0; margin-top: 0.75rem; align-items: stretch; }
+            .navbar-links.open { display: flex; }
+            .navbar-links a { text-align: center; padding: 0.6rem 1rem; font-size: 0.9rem; }
+            .lang-switcher { margin-left: 0; padding-left: 0; border-left: none; justify-content: center; padding-top: 0.5rem; border-top: 1px solid #e2e8f0; }
+            .hero { padding: 3rem 1.25rem 2.5rem; }
+            .hero h1 { font-size: 1.75rem; }
+            .hero p { font-size: 0.95rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .hero-buttons a { width: 100%; max-width: 280px; text-align: center; padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+            .features { padding: 2.5rem 1rem; }
+            .features h2 { font-size: 1.5rem; }
+            .features .subtitle { font-size: 0.95rem; margin-bottom: 2rem; }
+            .features-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .how-it-works { padding: 2.5rem 1rem; }
+            .how-it-works h2 { font-size: 1.5rem; margin-bottom: 2rem; }
+            .steps { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+            .step-number { width: 44px; height: 44px; font-size: 1.25rem; }
+            .stats { padding: 2rem 1rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .stat h3 { font-size: 2rem; }
+        }
+
+        @media (max-width: 400px) {
+            .steps { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -88,10 +115,13 @@
             </svg>
             DentalTrack
         </a>
-        <div class="navbar-links">
-            <a href="{{ url('/track') }}" class="btn-track">Auftrag verfolgen</a>
-            <a href="{{ url('/scan') }}" class="btn-outline">QR scannen</a>
-            <a href="{{ url('/admin') }}" class="btn-primary">Admin-Bereich</a>
+        <button class="navbar-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="navbar-links" id="navLinks">
+            <a href="{{ url('/track') }}" class="btn-track">{{ __('app.landing.track_order') }}</a>
+            <a href="{{ url('/scan') }}" class="btn-outline">{{ __('app.landing.scan_qr') }}</a>
+            <a href="{{ url('/admin') }}" class="btn-primary">{{ __('app.landing.admin_area') }}</a>
             <div class="lang-switcher">
                 <a href="?lang=de" class="{{ app()->getLocale() === 'de' ? 'active' : '' }}">DE</a>
                 <a href="?lang=en" class="{{ app()->getLocale() === 'en' ? 'active' : '' }}">EN</a>
@@ -102,76 +132,76 @@
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Intelligente Produktionsverfolgung<br>fuer <span>Dentallabore</span></h1>
-        <p>QR-Code-basiertes Echtzeit-Tracking-System fuer Dentallabore. Scannen, verfolgen und analysieren Sie jeden Schritt des Produktionsprozesses — vom Abdruck bis zur Lieferung.</p>
+        <h1>{!! __('app.landing.hero_heading') !!}</h1>
+        <p>{{ __('app.landing.hero_text') }}</p>
         <div class="hero-buttons">
-            <a href="{{ url('/admin') }}" class="btn-primary" style="background:#1e40af;color:#fff;">Dashboard oeffnen</a>
-            <a href="{{ url('/track') }}" class="btn-track" style="background:#059669;color:#fff;">Auftrag verfolgen</a>
-            <a href="{{ url('/scan') }}" class="btn-outline" style="color:#1e40af;border:2px solid #1e40af;">Scannen starten</a>
+            <a href="{{ url('/admin') }}" class="btn-primary" style="background:#1e40af;color:#fff;">{{ __('app.landing.open_dashboard') }}</a>
+            <a href="{{ url('/track') }}" class="btn-track" style="background:#059669;color:#fff;">{{ __('app.landing.track_order') }}</a>
+            <a href="{{ url('/scan') }}" class="btn-outline" style="color:#1e40af;border:2px solid #1e40af;">{{ __('app.landing.start_scanning') }}</a>
         </div>
     </section>
 
     <!-- Features -->
     <section class="features">
-        <h2>Alles was Sie brauchen</h2>
-        <p class="subtitle">Komplettes Produktionsmanagement fuer moderne Dentallabore</p>
+        <h2>{{ __('app.landing.features_heading') }}</h2>
+        <p class="subtitle">{{ __('app.landing.features_subtitle') }}</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon icon-blue">&#x1F4F1;</div>
-                <h3>QR-Code-Scannen</h3>
-                <p>Scannen Sie Auftrags- und Arbeitsstations-QR-Codes mit jedem Smartphone-Browser. Keine App-Installation noetig — funktioniert als PWA.</p>
+                <h3>{{ __('app.landing.feat_qr_title') }}</h3>
+                <p>{{ __('app.landing.feat_qr_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-green">&#x1F4CA;</div>
-                <h3>Live-Dashboard</h3>
-                <p>Echtzeit-Auftragstafel mit WebSocket-Updates. Sehen Sie laufende, ausstehende und ueberfaellige Auftraege auf einen Blick.</p>
+                <h3>{{ __('app.landing.feat_live_title') }}</h3>
+                <p>{{ __('app.landing.feat_live_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-purple">&#x1F916;</div>
-                <h3>KI-Prognosen</h3>
-                <p>Gewichtetes historisches Durchschnittsmodell sagt Fertigstellungszeiten voraus. Intelligente Vorschlaege zur Engpasserkennung und optimalen Weiterleitung.</p>
+                <h3>{{ __('app.landing.feat_ai_title') }}</h3>
+                <p>{{ __('app.landing.feat_ai_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-orange">&#x1F4C8;</div>
-                <h3>Analysen & Berichte</h3>
-                <p>Mitarbeiterleistung, Produktionsanalysen, Firmenvergleich und exportierbare Berichte im Excel/CSV-Format.</p>
+                <h3>{{ __('app.landing.feat_analytics_title') }}</h3>
+                <p>{{ __('app.landing.feat_analytics_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-red">&#x1F6E1;&#xFE0F;</div>
-                <h3>Qualitaetskontrolle</h3>
-                <p>Markieren Sie fehlgeschlagene QK-Schritte, verfolgen Sie Nacharbeitsursachen und ueberwachen Sie Technikerqualitaet mit dem QK-Dashboard.</p>
+                <h3>{{ __('app.landing.feat_qc_title') }}</h3>
+                <p>{{ __('app.landing.feat_qc_desc') }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon icon-teal">&#x1F310;</div>
-                <h3>Kundenportal</h3>
-                <p>Aerzte und Kliniken koennen ihre Auftraege online mit einem einfachen Tracking-Code verfolgen. Mehrsprachige Unterstuetzung.</p>
+                <h3>{{ __('app.landing.feat_portal_title') }}</h3>
+                <p>{{ __('app.landing.feat_portal_desc') }}</p>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
     <section class="how-it-works">
-        <h2>So funktioniert es</h2>
+        <h2>{{ __('app.landing.how_heading') }}</h2>
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
-                <h3>Auftrag erstellen</h3>
-                <p>Der Laborleiter erstellt einen Auftrag mit Patientendaten, Produkttyp und Faelligkeitsdatum. Der QR-Code wird automatisch generiert.</p>
+                <h3>{{ __('app.landing.step1_title') }}</h3>
+                <p>{{ __('app.landing.step1_desc') }}</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <h3>QR-Sticker drucken</h3>
-                <p>Drucken Sie kleine QR-Sticker fuer Auftraege und grosse fuer Arbeitsstationen. Kompatibel mit Thermodruckern.</p>
+                <h3>{{ __('app.landing.step2_title') }}</h3>
+                <p>{{ __('app.landing.step2_desc') }}</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <h3>Scannen & Verfolgen</h3>
-                <p>Techniker scannen den Arbeitsstations-QR, dann den Auftrags-QR. Arbeit starten, pausieren oder abschliessen mit einem Tipp.</p>
+                <h3>{{ __('app.landing.step3_title') }}</h3>
+                <p>{{ __('app.landing.step3_desc') }}</p>
             </div>
             <div class="step">
                 <div class="step-number">4</div>
-                <h3>Ueberwachen & Liefern</h3>
-                <p>Das Management verfolgt den Fortschritt in Echtzeit. KI sagt die Fertigstellung voraus. Aerzte erhalten Updates ueber das Portal.</p>
+                <h3>{{ __('app.landing.step4_title') }}</h3>
+                <p>{{ __('app.landing.step4_desc') }}</p>
             </div>
         </div>
     </section>
@@ -181,26 +211,26 @@
         <div class="stats-grid">
             <div class="stat">
                 <h3>4</h3>
-                <p>Benutzerrollen</p>
+                <p>{{ __('app.landing.stat_roles') }}</p>
             </div>
             <div class="stat">
                 <h3>7</h3>
-                <p>Dashboard-Seiten</p>
+                <p>{{ __('app.landing.stat_pages') }}</p>
             </div>
             <div class="stat">
                 <h3>19</h3>
-                <p>Automatisierte Tests</p>
+                <p>{{ __('app.landing.stat_tests') }}</p>
             </div>
             <div class="stat">
                 <h3>2</h3>
-                <p>Sprachen</p>
+                <p>{{ __('app.landing.stat_languages') }}</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; {{ date('Y') }} DentalTrack — QR-basiertes Produktionsverfolgungssystem fuer Dentallabore</p>
+        <p>&copy; {{ date('Y') }} {{ __('app.landing.footer') }}</p>
     </footer>
 </body>
 </html>

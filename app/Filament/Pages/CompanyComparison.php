@@ -15,9 +15,15 @@ class CompanyComparison extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
-    protected static ?string $navigationLabel = 'Firmenvergleich';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.nav.company_comparison');
+    }
 
-    protected static ?string $navigationGroup = 'Analysen';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.nav.analytics');
+    }
 
     protected static ?int $navigationSort = 12;
 

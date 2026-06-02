@@ -16,7 +16,10 @@ class LabResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-beaker';
 
-    protected static ?string $navigationGroup = 'Administration';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.resource.administration');
+    }
 
     protected static ?int $navigationSort = 2;
 

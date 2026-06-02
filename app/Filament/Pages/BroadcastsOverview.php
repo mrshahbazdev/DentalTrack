@@ -13,9 +13,15 @@ class BroadcastsOverview extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-signal';
 
-    protected static ?string $navigationLabel = 'Broadcast-Uebersicht';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.nav.broadcasts_overview');
+    }
 
-    protected static ?string $navigationGroup = 'Monitoring';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.nav.monitoring');
+    }
 
     protected static ?int $navigationSort = 21;
 
@@ -42,7 +48,7 @@ class BroadcastsOverview extends Page
     public function getSummaryStats(): array
     {
         $baseQuery = DB::table('scan_events')
-            ->whereBetween('scanned_at', [$this->dateFrom, $this->dateTo . ' 23:59:59']);
+            ->whereBetween('scanned_at', [$this->dateFrom, $this->dateTo.' 23:59:59']);
 
         if ($this->eventTypeFilter !== '') {
             $baseQuery->where('event_type', $this->eventTypeFilter);
@@ -66,7 +72,7 @@ class BroadcastsOverview extends Page
             ->join('workstations', 'scan_events.workstation_id', '=', 'workstations.id')
             ->leftJoin('users', 'scan_events.user_id', '=', 'users.id')
             ->leftJoin('orders', 'scan_events.order_id', '=', 'orders.id')
-            ->whereBetween('scan_events.scanned_at', [$this->dateFrom, $this->dateTo . ' 23:59:59']);
+            ->whereBetween('scan_events.scanned_at', [$this->dateFrom, $this->dateTo.' 23:59:59']);
 
         if ($this->eventTypeFilter !== '') {
             $query->where('scan_events.event_type', $this->eventTypeFilter);
@@ -105,7 +111,7 @@ class BroadcastsOverview extends Page
                 'workstation' => $event->workstation_name,
                 'technician' => $event->technician_name ?? 'N/A',
                 'triggered_at' => Carbon::parse($event->scanned_at)->format('d.m.Y H:i:s'),
-                'payload' => !empty($payload) ? json_encode($payload, JSON_UNESCAPED_UNICODE) : '-',
+                'payload' => ! empty($payload) ? json_encode($payload, JSON_UNESCAPED_UNICODE) : '-',
             ];
         });
     }

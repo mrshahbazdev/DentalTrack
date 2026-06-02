@@ -16,9 +16,15 @@ class QualityControl extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static ?string $navigationLabel = 'Qualitaets-Dashboard';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.nav.quality_dashboard');
+    }
 
-    protected static ?string $navigationGroup = 'Qualitaetskontrolle';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.nav.quality_control');
+    }
 
     protected static ?int $navigationSort = 21;
 

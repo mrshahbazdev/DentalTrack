@@ -4,7 +4,6 @@ namespace App\Filament\Pages;
 
 use App\Enums\ScanEventType;
 use App\Models\Lab;
-use App\Models\Order;
 use App\Models\Workstation;
 use Filament\Pages\Page;
 use Illuminate\Support\Carbon;
@@ -15,9 +14,15 @@ class StationMonitoring extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
 
-    protected static ?string $navigationLabel = 'Stationsmonitoring';
+    public static function getNavigationLabel(): string
+    {
+        return __('app.nav.station_monitoring');
+    }
 
-    protected static ?string $navigationGroup = 'Monitoring';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.nav.monitoring');
+    }
 
     protected static ?int $navigationSort = 20;
 
@@ -44,7 +49,7 @@ class StationMonitoring extends Page
         $rows = DB::table('scan_events')
             ->where('event_type', ScanEventType::Complete->value)
             ->whereNotNull('duration_seconds')
-            ->whereBetween('scanned_at', [$this->dateFrom, $this->dateTo . ' 23:59:59'])
+            ->whereBetween('scanned_at', [$this->dateFrom, $this->dateTo.' 23:59:59'])
             ->select(
                 'workstation_id',
                 DB::raw('AVG(duration_seconds) as avg_duration'),
@@ -59,7 +64,7 @@ class StationMonitoring extends Page
         $results = [];
         foreach ($rows as $row) {
             $ws = Workstation::with('lab')->find($row->workstation_id);
-            if (!$ws instanceof Workstation) {
+            if (! $ws instanceof Workstation) {
                 continue;
             }
 
@@ -101,7 +106,7 @@ class StationMonitoring extends Page
         $events = DB::table('scan_events')
             ->join('workstations', 'scan_events.workstation_id', '=', 'workstations.id')
             ->leftJoin('users', 'scan_events.user_id', '=', 'users.id')
-            ->whereBetween('scan_events.scanned_at', [$this->dateFrom, $this->dateTo . ' 23:59:59'])
+            ->whereBetween('scan_events.scanned_at', [$this->dateFrom, $this->dateTo.' 23:59:59'])
             ->select(
                 'scan_events.order_id',
                 'workstations.name as workstation_name',

@@ -19,7 +19,10 @@ class WorkstationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
 
-    protected static ?string $navigationGroup = 'Produktion';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.resource.production');
+    }
 
     protected static ?int $navigationSort = 2;
 
