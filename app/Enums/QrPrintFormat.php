@@ -10,8 +10,8 @@ enum QrPrintFormat: string
     public function label(): string
     {
         return match ($this) {
-            self::StickerSmall => 'Small Sticker (25x15mm)',
-            self::StickerLarge => 'Large Sticker (50x50mm)',
+            self::StickerSmall => 'Kleiner Aufkleber (25x15mm)',
+            self::StickerLarge => 'Grosser Aufkleber (50x50mm)',
         };
     }
 }

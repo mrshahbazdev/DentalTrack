@@ -7,17 +7,17 @@
                 <div class="text-3xl font-bold {{ $stats['avg_accuracy'] >= 80 ? 'text-green-600' : ($stats['avg_accuracy'] >= 60 ? 'text-yellow-600' : 'text-red-600') }}">
                     {{ $stats['avg_accuracy'] }}%
                 </div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Overall Accuracy</div>
-                <div class="text-xs text-gray-400 mt-1">{{ $stats['total_predictions'] }} predictions</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ __('app.predictions.overall_accuracy') }}</div>
+                <div class="text-xs text-gray-400 mt-1">{{ $stats['total_predictions'] }} {{ __('app.predictions.predictions_count') }}</div>
             </div>
             <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 p-6 text-center">
                 <div class="text-3xl font-bold {{ $stats['recent_accuracy'] >= 80 ? 'text-green-600' : ($stats['recent_accuracy'] >= 60 ? 'text-yellow-600' : 'text-red-600') }}">
                     {{ $stats['recent_accuracy'] }}%
                 </div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Last 7 Days Accuracy</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ __('app.predictions.last_7_days') }}</div>
             </div>
             <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 p-6">
-                <div class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Model Versions</div>
+                <div class="text-sm font-semibold text-gray-900 dark:text-white mb-2">{{ __('app.predictions.model_versions') }}</div>
                 @foreach ($stats['by_version'] as $version => $data)
                     <div class="flex justify-between text-sm py-1">
                         <span class="text-gray-600 dark:text-gray-400 font-mono">{{ $version }}</span>
@@ -25,7 +25,7 @@
                     </div>
                 @endforeach
                 @if (empty($stats['by_version']))
-                    <div class="text-sm text-gray-400">No predictions with actuals yet</div>
+                    <div class="text-sm text-gray-400">{{ __('app.predictions.no_predictions_yet') }}</div>
                 @endif
             </div>
         </div>
@@ -34,7 +34,7 @@
         @php $trend = $this->getAccuracyTrend(); @endphp
         @if (!empty($trend))
             <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 p-6">
-                <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Accuracy Trend (Last 30 Days)</h3>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">{{ __('app.predictions.accuracy_trend') }}</h3>
                 @php $maxAcc = 100; @endphp
                 <div class="flex items-end gap-1 h-32">
                     @foreach ($trend as $day)
@@ -53,7 +53,7 @@
             {{-- Smart Suggestions --}}
             <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 overflow-hidden">
                 <div class="px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white">
-                    <h3 class="text-sm font-semibold">Smart Suggestions</h3>
+                    <h3 class="text-sm font-semibold">{{ __('app.predictions.smart_suggestions') }}</h3>
                 </div>
                 <div class="p-4 space-y-3">
                     @php $suggestions = $this->getSmartSuggestions(); @endphp
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                     @empty
-                        <p class="text-sm text-gray-400 text-center py-4">No suggestions at this time. Everything looks good!</p>
+                        <p class="text-sm text-gray-400 text-center py-4">{{ __('app.predictions.no_suggestions') }}</p>
                     @endforelse
                 </div>
             </div>
@@ -90,15 +90,15 @@
             {{-- Active Order ETAs --}}
             <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 overflow-hidden">
                 <div class="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Active Order ETAs</h3>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('app.predictions.active_order_etas') }}</h3>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
                         <thead class="text-xs text-gray-500 uppercase">
                             <tr>
-                                <th class="px-4 py-2 text-left">Order</th>
-                                <th class="px-4 py-2 text-left">Product</th>
-                                <th class="px-4 py-2 text-left">ETA</th>
+                                <th class="px-4 py-2 text-left">{{ __('app.common.order') }}</th>
+                                <th class="px-4 py-2 text-left">{{ __('app.common.product') }}</th>
+                                <th class="px-4 py-2 text-left">{{ __('app.common.eta') }}</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -117,7 +117,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="px-4 py-6 text-center text-gray-400">No active orders with predictions</td>
+                                    <td colspan="3" class="px-4 py-6 text-center text-gray-400">{{ __('app.predictions.no_active_predictions') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -129,18 +129,18 @@
         {{-- Recent Predictions Table --}}
         <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 overflow-hidden">
             <div class="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Recent Predictions</h3>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('app.predictions.recent_predictions') }}</h3>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase">
                         <tr>
-                            <th class="px-4 py-2 text-left">Order</th>
-                            <th class="px-4 py-2 text-center">Predicted</th>
-                            <th class="px-4 py-2 text-center">Actual</th>
-                            <th class="px-4 py-2 text-center">Accuracy</th>
-                            <th class="px-4 py-2 text-left">Model</th>
-                            <th class="px-4 py-2 text-left">When</th>
+                            <th class="px-4 py-2 text-left">{{ __('app.common.order') }}</th>
+                            <th class="px-4 py-2 text-center">{{ __('app.predictions.predicted') }}</th>
+                            <th class="px-4 py-2 text-center">{{ __('app.predictions.actual') }}</th>
+                            <th class="px-4 py-2 text-center">{{ __('app.predictions.accuracy') }}</th>
+                            <th class="px-4 py-2 text-left">{{ __('app.predictions.version') }}</th>
+                            <th class="px-4 py-2 text-left">{{ __('app.predictions.when') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -153,7 +153,7 @@
                                     @if ($pred['actual'] !== null)
                                         {{ $pred['actual'] }} min
                                     @else
-                                        <span class="text-gray-400">pending</span>
+                                        <span class="text-gray-400">{{ __('app.status.pending') }}</span>
                                     @endif
                                 </td>
                                 <td class="px-4 py-2 text-center">
@@ -175,7 +175,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-4 py-6 text-center text-gray-400">No predictions yet. Predictions are generated when orders are created or scanned.</td>
+                                <td colspan="6" class="px-4 py-6 text-center text-gray-400">{{ __('app.predictions.no_predictions_data') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

@@ -18,11 +18,11 @@ class StickerPdfService
     {
         $order->load('productType');
 
-        $qrSvg = $this->qrCodeService->generateSvg($order->qrUrl(), 150);
+        $qrImage = $this->qrCodeService->generateBase64Image($order->qrUrl(), 150);
 
         $pdf = Pdf::loadView('pdf.order-sticker', [
             'order' => $order,
-            'qrSvg' => $qrSvg,
+            'qrImage' => $qrImage,
         ])->setPaper([0, 0, 70.87, 42.52], 'portrait'); // ~25x15mm
 
         return $pdf->download("order-{$order->id}-sticker.pdf");
@@ -30,11 +30,11 @@ class StickerPdfService
 
     public function generateWorkstationSticker(Workstation $workstation): Response
     {
-        $qrSvg = $this->qrCodeService->generateSvg($workstation->qrUrl(), 250);
+        $qrImage = $this->qrCodeService->generateBase64Image($workstation->qrUrl(), 250);
 
         $pdf = Pdf::loadView('pdf.workstation-sticker', [
             'workstation' => $workstation,
-            'qrSvg' => $qrSvg,
+            'qrImage' => $qrImage,
         ])->setPaper([0, 0, 141.73, 141.73], 'portrait'); // ~50x50mm
 
         return $pdf->download("workstation-{$workstation->id}-sticker.pdf");
@@ -50,7 +50,7 @@ class StickerPdfService
         $stickers = $orders->map(function (Order $order) {
             return [
                 'order' => $order,
-                'qrSvg' => $this->qrCodeService->generateSvg($order->qrUrl(), 120),
+                'qrImage' => $this->qrCodeService->generateBase64Image($order->qrUrl(), 120),
             ];
         });
 

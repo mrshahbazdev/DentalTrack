@@ -23,14 +23,14 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static ?string $navigationGroup = 'Production';
+    protected static ?string $navigationGroup = 'Produktion';
 
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\Section::make('Order Details')->schema([
+            Forms\Components\Section::make('Auftragsdetails')->schema([
                 Forms\Components\Select::make('company_id')
                     ->relationship('company', 'name')
                     ->required()
@@ -72,11 +72,11 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
-                    ->label('Order #')
+                    ->label('Auftrags-Nr.')
                     ->prefix('#')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('productType.name')
-                    ->label('Product')
+                    ->label('Produkt')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('patient_ref')
@@ -120,7 +120,7 @@ class OrderResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('download_sticker')
-                    ->label('Sticker')
+                    ->label('Aufkleber')
                     ->icon('heroicon-o-printer')
                     ->action(fn (Order $record) => app(StickerPdfService::class)->generateOrderSticker($record)),
             ])
@@ -134,12 +134,12 @@ class OrderResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
-            Infolists\Components\Section::make('Order Information')->schema([
+            Infolists\Components\Section::make('Auftragsinformationen')->schema([
                 Infolists\Components\TextEntry::make('id')
-                    ->label('Order #')
+                    ->label('Auftrags-Nr.')
                     ->prefix('#'),
                 Infolists\Components\TextEntry::make('productType.name')
-                    ->label('Product Type'),
+                    ->label('Produkttyp'),
                 Infolists\Components\TextEntry::make('patient_ref'),
                 Infolists\Components\TextEntry::make('doctor_name'),
                 Infolists\Components\TextEntry::make('lab.name'),
@@ -152,11 +152,11 @@ class OrderResource extends Resource
                 Infolists\Components\TextEntry::make('due_date')
                     ->date(),
                 Infolists\Components\TextEntry::make('qr_code')
-                    ->label('QR Code UUID'),
+                    ->label('QR-Code UUID'),
                 Infolists\Components\TextEntry::make('notes'),
             ])->columns(3),
 
-            Infolists\Components\Section::make('Production Steps')->schema([
+            Infolists\Components\Section::make('Produktionsschritte')->schema([
                 Infolists\Components\RepeatableEntry::make('steps')
                     ->schema([
                         Infolists\Components\TextEntry::make('sort_order')
@@ -166,13 +166,13 @@ class OrderResource extends Resource
                             ->badge()
                             ->color(fn (StepStatus $state): string => $state->color()),
                         Infolists\Components\TextEntry::make('assignedUser.name')
-                            ->label('Assigned To')
+                            ->label('Zugewiesen an')
                             ->default('-'),
                     ])
                     ->columns(4),
             ]),
 
-            Infolists\Components\Section::make('Scan History')->schema([
+            Infolists\Components\Section::make('Scan-Verlauf')->schema([
                 Infolists\Components\RepeatableEntry::make('scanEvents')
                     ->schema([
                         Infolists\Components\TextEntry::make('scanned_at')
@@ -182,7 +182,7 @@ class OrderResource extends Resource
                         Infolists\Components\TextEntry::make('workstation.name'),
                         Infolists\Components\TextEntry::make('user.name'),
                         Infolists\Components\TextEntry::make('duration_seconds')
-                            ->label('Duration')
+                            ->label('Dauer')
                             ->formatStateUsing(fn (?int $state): string => $state ? gmdate('H:i:s', $state) : '-'),
                     ])
                     ->columns(5),

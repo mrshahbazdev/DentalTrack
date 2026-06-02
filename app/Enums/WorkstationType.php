@@ -10,8 +10,8 @@ enum WorkstationType: string
     public function label(): string
     {
         return match ($this) {
-            self::Station => 'Station',
-            self::WaitingArea => 'Waiting Area',
+            self::Station => __('app.workstation_type.station'),
+            self::WaitingArea => __('app.workstation_type.waiting_area'),
         };
     }
 }

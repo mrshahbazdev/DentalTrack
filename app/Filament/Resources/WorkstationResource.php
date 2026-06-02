@@ -19,14 +19,14 @@ class WorkstationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
 
-    protected static ?string $navigationGroup = 'Production';
+    protected static ?string $navigationGroup = 'Produktion';
 
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\Section::make('Workstation Details')->schema([
+            Forms\Components\Section::make('Arbeitsstationsdetails')->schema([
                 Forms\Components\Select::make('lab_id')
                     ->relationship('lab', 'name')
                     ->required()
@@ -85,12 +85,12 @@ class WorkstationResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('regenerate_qr')
-                    ->label('Regenerate QR')
+                    ->label('QR neu generieren')
                     ->icon('heroicon-o-arrow-path')
                     ->requiresConfirmation()
                     ->action(fn (Workstation $record) => $record->update(['qr_code' => 'WS-'.Str::ulid()])),
                 Tables\Actions\Action::make('download_sticker')
-                    ->label('Download Sticker')
+                    ->label('Aufkleber herunterladen')
                     ->icon('heroicon-o-printer')
                     ->action(fn (Workstation $record) => app(StickerPdfService::class)->generateWorkstationSticker($record)),
             ])

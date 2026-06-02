@@ -11,9 +11,9 @@ enum ReworkStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::InRework => 'In Rework',
-            self::Resolved => 'Resolved',
+            self::Pending => __('app.rework.pending'),
+            self::InRework => __('app.rework.in_rework'),
+            self::Resolved => __('app.rework.resolved'),
         };
     }
 

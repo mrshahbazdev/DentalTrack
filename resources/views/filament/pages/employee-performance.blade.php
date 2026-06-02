@@ -4,20 +4,20 @@
         <div class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 p-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">From</label>
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('app.common.from') }}</label>
                     <input type="date" wire:model.live="dateFrom"
                         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white text-sm" />
                 </div>
                 <div>
-                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">To</label>
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('app.common.to') }}</label>
                     <input type="date" wire:model.live="dateTo"
                         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white text-sm" />
                 </div>
                 <div>
-                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Company</label>
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('app.common.company') }}</label>
                     <select wire:model.live="selectedCompany"
                         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white text-sm">
-                        <option value="">All Companies</option>
+                        <option value="">{{ __('app.common.all_companies') }}</option>
                         @foreach (\App\Models\Company::all() as $company)
                             <option value="{{ $company->id }}">{{ $company->name }}</option>
                         @endforeach
@@ -32,14 +32,14 @@
                 <table class="w-full text-sm text-left">
                     <thead class="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 uppercase text-xs">
                         <tr>
-                            <th class="px-4 py-3">Technician</th>
-                            <th class="px-4 py-3">Company</th>
-                            <th class="px-4 py-3 text-center">Steps Done</th>
-                            <th class="px-4 py-3 text-center">Orders Done</th>
-                            <th class="px-4 py-3 text-center">Avg Min/Step</th>
-                            <th class="px-4 py-3 text-center">Orders/Day</th>
-                            <th class="px-4 py-3 text-center">Total Hours</th>
-                            <th class="px-4 py-3 text-center">Utilization</th>
+                            <th class="px-4 py-3">{{ __('app.common.technician') }}</th>
+                            <th class="px-4 py-3">{{ __('app.common.company') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('app.performance.steps_done') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('app.performance.orders_done') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('app.performance.avg_min_step') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('app.performance.orders_per_day') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('app.performance.total_hours') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('app.performance.utilization') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -77,7 +77,7 @@
                         @empty
                             <tr>
                                 <td colspan="8" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
-                                    No technician data for the selected period.
+                                    {{ __('app.common.no_data') }}
                                 </td>
                             </tr>
                         @endforelse

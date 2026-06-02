@@ -16,6 +16,7 @@
                 <span class="text-xl font-bold text-gray-900">DentalTrack</span>
             </div>
             <div class="flex gap-2">
+                <a href="{{ url('/track?lang=de') }}" class="text-sm px-2 py-1 rounded {{ app()->getLocale() === 'de' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700' }}">DE</a>
                 <a href="{{ url('/track?lang=en') }}" class="text-sm px-2 py-1 rounded {{ app()->getLocale() === 'en' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700' }}">EN</a>
                 <a href="{{ url('/track?lang=ur') }}" class="text-sm px-2 py-1 rounded {{ app()->getLocale() === 'ur' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700' }}">اردو</a>
             </div>

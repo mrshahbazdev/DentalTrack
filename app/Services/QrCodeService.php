@@ -37,4 +37,24 @@ class QrCodeService
 
         return (string) $result;
     }
+
+    /**
+     * Generate a base64-encoded image tag suitable for DomPDF rendering.
+     * Uses PNG via Imagick if available, otherwise falls back to base64 SVG data URI.
+     */
+    public function generateBase64Image(string $url, int $size = 200): string
+    {
+        if (extension_loaded('imagick')) {
+            $png = QrCode::format('png')
+                ->size($size)
+                ->errorCorrection('H')
+                ->generate($url);
+
+            return 'data:image/png;base64,' . base64_encode((string) $png);
+        }
+
+        $svg = $this->generateSvg($url, $size);
+
+        return 'data:image/svg+xml;base64,' . base64_encode($svg);
+    }
 }

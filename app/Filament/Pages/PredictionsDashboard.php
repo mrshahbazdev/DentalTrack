@@ -15,9 +15,9 @@ class PredictionsDashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-cpu-chip';
 
-    protected static ?string $navigationLabel = 'Predictions';
+    protected static ?string $navigationLabel = 'Prognosen';
 
-    protected static ?string $navigationGroup = 'Analytics';
+    protected static ?string $navigationGroup = 'Analysen';
 
     protected static ?int $navigationSort = 14;
 
