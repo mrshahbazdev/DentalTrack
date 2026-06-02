@@ -2,6 +2,7 @@
 <html>
 <head>
     <style>
+        @page { margin: 0; }
         body { margin: 0; padding: 2mm; font-family: Arial, sans-serif; text-align: center; }
         .sticker { text-align: center; page-break-inside: avoid; }
         .qr { margin-bottom: 1mm; }

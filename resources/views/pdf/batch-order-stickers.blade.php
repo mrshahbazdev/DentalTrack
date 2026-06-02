@@ -2,7 +2,8 @@
 <html>
 <head>
     <style>
-        body { margin: 0; padding: 5mm; font-family: Arial, sans-serif; }
+        @page { margin: 5mm; }
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
         .grid { display: table; width: 100%; }
         .row { display: table-row; }
         .cell {
