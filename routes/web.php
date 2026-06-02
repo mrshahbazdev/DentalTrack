@@ -11,6 +11,8 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware(SetLocale::class);
 
+Route::get('/login', fn () => redirect('/admin/login'))->name('login');
+
 Route::get('/scan/{uuid?}', QrScanner::class)
     ->middleware([SetLocale::class, 'auth', 'throttle:scan'])
     ->name('scan');
