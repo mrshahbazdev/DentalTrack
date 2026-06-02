@@ -34,7 +34,22 @@ class WorkstationResource extends Resource
                     ->relationship('lab', 'name')
                     ->required()
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->placeholder(__('app.common.lab'))
+                    ->createOptionForm([
+                        Forms\Components\Select::make('company_id')
+                            ->relationship('company', 'name')
+                            ->required()
+                            ->searchable()
+                            ->preload(),
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('location')
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('is_active')
+                            ->default(true),
+                    ]),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
