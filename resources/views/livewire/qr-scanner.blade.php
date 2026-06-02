@@ -90,24 +90,47 @@
         </button>
     </div>
 
-    @if(in_array($step, ['scan_workstation', 'scan_order', 'scan_next_station']))
-        @script
-        <script>
-            const html5QrCode = new Html5Qrcode("qr-reader");
+    @script
+    <script>
+        let html5QrCode = null;
+        const scanSteps = ['scan_workstation', 'scan_order', 'scan_next_station'];
+
+        function startScanner() {
+            const el = document.getElementById('qr-reader');
+            if (!el || html5QrCode) return;
+            html5QrCode = new Html5Qrcode("qr-reader");
             html5QrCode.start(
                 { facingMode: "environment" },
                 { fps: 10, qrbox: { width: 250, height: 250 } },
                 (decodedText) => {
-                    html5QrCode.stop();
+                    const scanner = html5QrCode;
+                    html5QrCode = null;
+                    scanner.stop().catch(() => {});
                     $wire.processQrCode(decodedText);
                 },
                 () => {}
             ).catch(err => console.error("QR Scanner error:", err));
+        }
 
-            $cleanup(() => {
+        function stopScanner() {
+            if (html5QrCode) {
                 html5QrCode.stop().catch(() => {});
-            });
-        </script>
-        @endscript
-    @endif
+                html5QrCode = null;
+            }
+        }
+
+        if (scanSteps.includes($wire.step)) {
+            setTimeout(startScanner, 300);
+        }
+
+        $wire.$watch('step', (newStep) => {
+            stopScanner();
+            if (scanSteps.includes(newStep)) {
+                setTimeout(startScanner, 500);
+            }
+        });
+
+        $cleanup(() => { stopScanner(); });
+    </script>
+    @endscript
 </div>
