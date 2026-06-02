@@ -31,7 +31,19 @@ class LabResource extends Resource
                     ->relationship('company', 'name')
                     ->required()
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->placeholder(__('app.common.company'))
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('slug')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('address')
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('is_active')
+                            ->default(true),
+                    ]),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

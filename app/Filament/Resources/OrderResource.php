@@ -39,17 +39,31 @@ class OrderResource extends Resource
                     ->required()
                     ->searchable()
                     ->preload()
-                    ->reactive(),
+                    ->reactive()
+                    ->placeholder(__('app.common.company'))
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('slug')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('address')
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('is_active')
+                            ->default(true),
+                    ]),
                 Forms\Components\Select::make('lab_id')
                     ->relationship('lab', 'name', fn (Builder $query, Forms\Get $get) => $query->where('company_id', $get('company_id')))
                     ->required()
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->placeholder(__('app.common.lab')),
                 Forms\Components\Select::make('product_type_id')
                     ->relationship('productType', 'name', fn (Builder $query, Forms\Get $get) => $query->where('company_id', $get('company_id')))
                     ->required()
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->placeholder(__('app.common.product_type')),
                 Forms\Components\TextInput::make('patient_ref')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('doctor_name')
