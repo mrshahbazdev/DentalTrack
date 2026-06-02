@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LabResource\Pages;
+use App\Models\Company;
 use App\Models\Lab;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -28,10 +29,8 @@ class LabResource extends Resource
         return $form->schema([
             Forms\Components\Section::make('Lab Details')->schema([
                 Forms\Components\Select::make('company_id')
-                    ->relationship('company', 'name')
+                    ->options(fn () => Company::pluck('name', 'id'))
                     ->required()
-                    ->searchable()
-                    ->preload()
                     ->placeholder(__('app.common.company'))
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
@@ -43,7 +42,10 @@ class LabResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Toggle::make('is_active')
                             ->default(true),
-                    ]),
+                    ])
+                    ->createOptionUsing(function (array $data): int {
+                        return Company::create($data)->getKey();
+                    }),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

@@ -6,7 +6,10 @@ use App\Enums\OrderPriority;
 use App\Enums\OrderStatus;
 use App\Enums\StepStatus;
 use App\Filament\Resources\OrderResource\Pages;
+use App\Models\Company;
+use App\Models\Lab;
 use App\Models\Order;
+use App\Models\ProductType;
 use App\Services\StickerPdfService;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,7 +18,6 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class OrderResource extends Resource
 {
@@ -35,11 +37,9 @@ class OrderResource extends Resource
         return $form->schema([
             Forms\Components\Section::make('Auftragsdetails')->schema([
                 Forms\Components\Select::make('company_id')
-                    ->relationship('company', 'name')
+                    ->options(fn () => Company::pluck('name', 'id'))
                     ->required()
-                    ->searchable()
-                    ->preload()
-                    ->reactive()
+                    ->live()
                     ->placeholder(__('app.common.company'))
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
@@ -51,18 +51,17 @@ class OrderResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Toggle::make('is_active')
                             ->default(true),
-                    ]),
+                    ])
+                    ->createOptionUsing(function (array $data): int {
+                        return Company::create($data)->getKey();
+                    }),
                 Forms\Components\Select::make('lab_id')
-                    ->relationship('lab', 'name', fn (Builder $query, Forms\Get $get) => $query->where('company_id', $get('company_id')))
+                    ->options(fn (Forms\Get $get) => Lab::where('company_id', $get('company_id'))->pluck('name', 'id'))
                     ->required()
-                    ->searchable()
-                    ->preload()
                     ->placeholder(__('app.common.lab')),
                 Forms\Components\Select::make('product_type_id')
-                    ->relationship('productType', 'name', fn (Builder $query, Forms\Get $get) => $query->where('company_id', $get('company_id')))
+                    ->options(fn (Forms\Get $get) => ProductType::where('company_id', $get('company_id'))->pluck('name', 'id'))
                     ->required()
-                    ->searchable()
-                    ->preload()
                     ->placeholder(__('app.common.product_type')),
                 Forms\Components\TextInput::make('patient_ref')
                     ->maxLength(255),
