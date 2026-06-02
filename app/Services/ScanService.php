@@ -153,7 +153,7 @@ class ScanService
             return null;
         }
 
-        return (int) Carbon::now()->diffInSeconds($lastStart->scanned_at);
+        return max(0, (int) abs(Carbon::now()->diffInSeconds($lastStart->scanned_at)));
     }
 
     private function checkOrderCompletion(Order $order): void
