@@ -6,7 +6,7 @@ use App\Models\Order;
 use App\Models\Workstation;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class StickerPdfService
 {
@@ -14,7 +14,7 @@ class StickerPdfService
         private readonly QrCodeService $qrCodeService,
     ) {}
 
-    public function generateOrderSticker(Order $order): Response
+    public function generateOrderSticker(Order $order): StreamedResponse
     {
         $order->load('productType');
 
@@ -25,10 +25,16 @@ class StickerPdfService
             'qrImage' => $qrImage,
         ])->setPaper([0, 0, 70.87, 42.52], 'portrait'); // ~25x15mm
 
-        return $pdf->download("order-{$order->id}-sticker.pdf");
+        $output = $pdf->output();
+
+        return response()->streamDownload(
+            fn () => print ($output),
+            "order-{$order->id}-sticker.pdf",
+            ['Content-Type' => 'application/pdf']
+        );
     }
 
-    public function generateWorkstationSticker(Workstation $workstation): Response
+    public function generateWorkstationSticker(Workstation $workstation): StreamedResponse
     {
         $qrImage = $this->qrCodeService->generateBase64Image($workstation->qrUrl(), 250);
 
@@ -37,13 +43,19 @@ class StickerPdfService
             'qrImage' => $qrImage,
         ])->setPaper([0, 0, 141.73, 141.73], 'portrait'); // ~50x50mm
 
-        return $pdf->download("workstation-{$workstation->id}-sticker.pdf");
+        $output = $pdf->output();
+
+        return response()->streamDownload(
+            fn () => print ($output),
+            "workstation-{$workstation->id}-sticker.pdf",
+            ['Content-Type' => 'application/pdf']
+        );
     }
 
     /**
      * @param  Collection<int, Order>  $orders
      */
-    public function generateBatchOrderStickers(Collection $orders): Response
+    public function generateBatchOrderStickers(Collection $orders): StreamedResponse
     {
         $orders->load('productType');
 
@@ -58,6 +70,12 @@ class StickerPdfService
             'stickers' => $stickers,
         ])->setPaper('a4', 'portrait');
 
-        return $pdf->download('batch-order-stickers.pdf');
+        $output = $pdf->output();
+
+        return response()->streamDownload(
+            fn () => print ($output),
+            'batch-order-stickers.pdf',
+            ['Content-Type' => 'application/pdf']
+        );
     }
 }
