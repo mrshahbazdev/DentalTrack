@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductTypeResource\Pages;
+use App\Models\Company;
 use App\Models\ProductType;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -28,10 +29,8 @@ class ProductTypeResource extends Resource
         return $form->schema([
             Forms\Components\Section::make('Product Type')->schema([
                 Forms\Components\Select::make('company_id')
-                    ->relationship('company', 'name')
-                    ->required()
-                    ->searchable()
-                    ->preload(),
+                    ->options(fn () => Company::pluck('name', 'id'))
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

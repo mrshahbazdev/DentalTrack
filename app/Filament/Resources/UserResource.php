@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Models\Company;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -28,9 +29,7 @@ class UserResource extends Resource
         return $form->schema([
             Forms\Components\Section::make('User Details')->schema([
                 Forms\Components\Select::make('company_id')
-                    ->relationship('company', 'name')
-                    ->searchable()
-                    ->preload(),
+                    ->options(fn () => Company::pluck('name', 'id')),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

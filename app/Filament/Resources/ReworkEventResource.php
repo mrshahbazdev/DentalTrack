@@ -5,7 +5,10 @@ namespace App\Filament\Resources;
 use App\Enums\ReworkCause;
 use App\Enums\ReworkStatus;
 use App\Filament\Resources\ReworkEventResource\Pages;
+use App\Models\Order;
+use App\Models\OrderStep;
 use App\Models\ReworkEvent;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -34,25 +37,17 @@ class ReworkEventResource extends Resource
     {
         return $form->schema([
             Forms\Components\Select::make('order_id')
-                ->relationship('order', 'id')
-                ->required()
-                ->searchable()
-                ->preload(),
+                ->options(fn () => Order::pluck('id', 'id'))
+                ->required(),
             Forms\Components\Select::make('order_step_id')
-                ->relationship('orderStep', 'step_name')
-                ->required()
-                ->searchable()
-                ->preload(),
+                ->options(fn () => OrderStep::pluck('step_name', 'id'))
+                ->required(),
             Forms\Components\Select::make('flagged_by')
-                ->relationship('flaggedByUser', 'name')
-                ->required()
-                ->searchable()
-                ->preload(),
+                ->options(fn () => User::pluck('name', 'id'))
+                ->required(),
             Forms\Components\Select::make('original_technician')
-                ->relationship('originalTechnician', 'name')
-                ->nullable()
-                ->searchable()
-                ->preload(),
+                ->options(fn () => User::pluck('name', 'id'))
+                ->nullable(),
             Forms\Components\Select::make('cause')
                 ->options(collect(ReworkCause::cases())->mapWithKeys(fn (ReworkCause $c) => [$c->value => $c->label()]))
                 ->required(),
@@ -63,10 +58,8 @@ class ReworkEventResource extends Resource
                 ->default('pending')
                 ->required(),
             Forms\Components\Select::make('resolved_by')
-                ->relationship('resolvedByUser', 'name')
-                ->nullable()
-                ->searchable()
-                ->preload(),
+                ->options(fn () => User::pluck('name', 'id'))
+                ->nullable(),
             Forms\Components\DateTimePicker::make('resolved_at')
                 ->nullable(),
         ]);

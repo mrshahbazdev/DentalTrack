@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Enums\WorkstationType;
 use App\Filament\Resources\WorkstationResource\Pages;
+use App\Models\Company;
+use App\Models\Lab;
 use App\Models\Workstation;
 use App\Services\StickerPdfService;
 use Filament\Forms;
@@ -31,17 +33,13 @@ class WorkstationResource extends Resource
         return $form->schema([
             Forms\Components\Section::make('Arbeitsstationsdetails')->schema([
                 Forms\Components\Select::make('lab_id')
-                    ->relationship('lab', 'name')
+                    ->options(fn () => Lab::pluck('name', 'id'))
                     ->required()
-                    ->searchable()
-                    ->preload()
                     ->placeholder(__('app.common.lab'))
                     ->createOptionForm([
                         Forms\Components\Select::make('company_id')
-                            ->relationship('company', 'name')
-                            ->required()
-                            ->searchable()
-                            ->preload(),
+                            ->options(fn () => Company::pluck('name', 'id'))
+                            ->required(),
                         Forms\Components\TextInput::make('name')
                             ->required()
                             ->maxLength(255),
@@ -49,7 +47,10 @@ class WorkstationResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Toggle::make('is_active')
                             ->default(true),
-                    ]),
+                    ])
+                    ->createOptionUsing(function (array $data): int {
+                        return Lab::create($data)->getKey();
+                    }),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
