@@ -6,17 +6,17 @@
                 <x-filament::input
                     type="text"
                     wire:model.live.debounce.300ms="searchQuery"
-                    placeholder="Search orders..."
+                    placeholder="{{ __('app.common.search_orders') }}"
                 />
             </x-filament::input.wrapper>
 
             <x-filament::input.wrapper>
                 <x-filament::input.select wire:model.live="priorityFilter">
-                    <option value="">All Priorities</option>
-                    <option value="urgent">Urgent</option>
-                    <option value="high">High</option>
-                    <option value="normal">Normal</option>
-                    <option value="low">Low</option>
+                    <option value="">{{ __('app.common.all_priorities') }}</option>
+                    <option value="urgent">{{ __('app.priority.urgent') }}</option>
+                    <option value="high">{{ __('app.priority.high') }}</option>
+                    <option value="normal">{{ __('app.priority.normal') }}</option>
+                    <option value="low">{{ __('app.priority.low') }}</option>
                 </x-filament::input.select>
             </x-filament::input.wrapper>
         </div>
@@ -26,16 +26,16 @@
         @if($overdueOrders->isNotEmpty())
             <div>
                 <h2 class="text-lg font-bold text-red-600 mb-3">
-                    OVERDUE ({{ $overdueOrders->count() }})
+                    {{ __('app.board.overdue') }} ({{ $overdueOrders->count() }})
                 </h2>
                 <div class="bg-red-50 border border-red-200 rounded-xl overflow-hidden">
                     <table class="w-full text-sm">
                         <thead class="bg-red-100">
                             <tr>
-                                <th class="px-4 py-2 text-left font-medium text-red-800">Order #</th>
-                                <th class="px-4 py-2 text-left font-medium text-red-800">Product</th>
-                                <th class="px-4 py-2 text-left font-medium text-red-800">Due Date</th>
-                                <th class="px-4 py-2 text-left font-medium text-red-800">Current Station</th>
+                                <th class="px-4 py-2 text-left font-medium text-red-800">{{ __('app.common.order_number') }}</th>
+                                <th class="px-4 py-2 text-left font-medium text-red-800">{{ __('app.common.product') }}</th>
+                                <th class="px-4 py-2 text-left font-medium text-red-800">{{ __('app.common.due_date') }}</th>
+                                <th class="px-4 py-2 text-left font-medium text-red-800">{{ __('app.common.current_station') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,7 +43,7 @@
                                 <tr class="border-t border-red-200">
                                     <td class="px-4 py-2 text-red-700 font-semibold">#{{ $order->id }}</td>
                                     <td class="px-4 py-2 text-red-700">{{ $order->productType->name }}</td>
-                                    <td class="px-4 py-2 text-red-700">{{ $order->due_date?->format('M d, Y') }}</td>
+                                    <td class="px-4 py-2 text-red-700">{{ $order->due_date?->format('d.m.Y') }}</td>
                                     <td class="px-4 py-2 text-red-700">
                                         {{ $order->scanEvents->first()?->workstation?->name ?? 'N/A' }}
                                     </td>
@@ -59,19 +59,19 @@
         @php $inProgressOrders = $this->getInProgressOrders(); @endphp
         <div>
             <h2 class="text-lg font-bold text-blue-600 mb-3">
-                IN PROGRESS ({{ $inProgressOrders->count() }})
+                {{ __('app.board.in_progress') }} ({{ $inProgressOrders->count() }})
             </h2>
             <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                 <table class="w-full text-sm">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Order #</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Product</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Current Station</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Technician</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Priority</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">ETA</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Progress</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.order_number') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.product') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.current_station') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.technician') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.priority') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.eta') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.progress') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +105,7 @@
                                 <td class="px-4 py-3">
                                     @if($order->predicted_completion_at)
                                         <span class="text-xs {{ $order->predicted_completion_at->isPast() ? 'text-red-600 font-bold' : 'text-blue-600' }}">
-                                            {{ $order->predicted_completion_at->format('M d, H:i') }}
+                                            {{ $order->predicted_completion_at->format('d.m, H:i') }}
                                         </span>
                                     @else
                                         <span class="text-xs text-gray-400">-</span>
@@ -122,7 +122,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-4 py-8 text-center text-gray-400">No orders in progress</td>
+                                <td colspan="7" class="px-4 py-8 text-center text-gray-400">{{ __('app.board.no_orders_in_progress') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -134,17 +134,17 @@
         @php $waitingOrders = $this->getWaitingOrders(); @endphp
         <div>
             <h2 class="text-lg font-bold text-yellow-600 mb-3">
-                PENDING ({{ $waitingOrders->count() }})
+                {{ __('app.board.pending') }} ({{ $waitingOrders->count() }})
             </h2>
             <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                 <table class="w-full text-sm">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Order #</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Product</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Lab</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Due Date</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-600">Priority</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.order_number') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.product') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.lab') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.due_date') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-600">{{ __('app.common.priority') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -153,7 +153,7 @@
                                 <td class="px-4 py-3 font-semibold">#{{ $order->id }}</td>
                                 <td class="px-4 py-3">{{ $order->productType->name }}</td>
                                 <td class="px-4 py-3">{{ $order->lab->name }}</td>
-                                <td class="px-4 py-3">{{ $order->due_date?->format('M d, Y') ?? '-' }}</td>
+                                <td class="px-4 py-3">{{ $order->due_date?->format('d.m.Y') ?? '-' }}</td>
                                 <td class="px-4 py-3">
                                     <span @class([
                                         'inline-flex items-center rounded-full px-2 py-1 text-xs font-medium',
@@ -168,7 +168,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-4 py-8 text-center text-gray-400">No pending orders</td>
+                                <td colspan="5" class="px-4 py-8 text-center text-gray-400">{{ __('app.board.no_orders_pending') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

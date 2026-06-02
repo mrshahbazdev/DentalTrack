@@ -12,10 +12,10 @@ enum ScanEventType: string
     public function label(): string
     {
         return match ($this) {
-            self::Start => 'Start',
-            self::Complete => 'Complete',
-            self::Pause => 'Pause',
-            self::TransferToWaiting => 'Transfer to Waiting',
+            self::Start => __('app.scan.start'),
+            self::Complete => __('app.scan.complete'),
+            self::Pause => __('app.scan.pause'),
+            self::TransferToWaiting => __('app.scan.transfer_to_waiting'),
         };
     }
 

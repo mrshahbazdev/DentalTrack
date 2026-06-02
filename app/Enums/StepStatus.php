@@ -12,10 +12,10 @@ enum StepStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::InProgress => 'In Progress',
-            self::Done => 'Done',
-            self::Skipped => 'Skipped',
+            self::Pending => __('app.step_status.pending'),
+            self::InProgress => __('app.step_status.in_progress'),
+            self::Done => __('app.step_status.done'),
+            self::Skipped => __('app.step_status.skipped'),
         };
     }
 

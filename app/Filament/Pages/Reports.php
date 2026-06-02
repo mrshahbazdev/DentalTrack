@@ -13,9 +13,9 @@ class Reports extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-arrow-down';
 
-    protected static ?string $navigationLabel = 'Reports & Export';
+    protected static ?string $navigationLabel = 'Berichte & Export';
 
-    protected static ?string $navigationGroup = 'Analytics';
+    protected static ?string $navigationGroup = 'Analysen';
 
     protected static ?int $navigationSort = 13;
 

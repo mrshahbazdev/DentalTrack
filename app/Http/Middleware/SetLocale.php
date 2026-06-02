@@ -12,7 +12,7 @@ class SetLocale
     public function handle(Request $request, Closure $next): Response
     {
         $lang = $request->query('lang');
-        if (is_string($lang) && in_array($lang, ['en', 'ur'], true)) {
+        if (is_string($lang) && in_array($lang, ['en', 'ur', 'de'], true)) {
             app()->setLocale($lang);
             session(['locale' => $lang]);
         } elseif (session()->has('locale')) {

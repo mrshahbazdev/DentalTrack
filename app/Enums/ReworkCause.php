@@ -13,11 +13,11 @@ enum ReworkCause: string
     public function label(): string
     {
         return match ($this) {
-            self::MaterialDefect => 'Material Defect',
-            self::TechniqueError => 'Technique Error',
-            self::EquipmentIssue => 'Equipment Issue',
-            self::DesignError => 'Design Error',
-            self::Other => 'Other',
+            self::MaterialDefect => __('app.rework.material_defect'),
+            self::TechniqueError => __('app.rework.technique_error'),
+            self::EquipmentIssue => __('app.rework.equipment_issue'),
+            self::DesignError => __('app.rework.design_error'),
+            self::Other => __('app.rework.other'),
         };
     }
 

@@ -13,9 +13,9 @@ class EmployeePerformance extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    protected static ?string $navigationLabel = 'Employee Performance';
+    protected static ?string $navigationLabel = 'Mitarbeiterleistung';
 
-    protected static ?string $navigationGroup = 'Analytics';
+    protected static ?string $navigationGroup = 'Analysen';
 
     protected static ?int $navigationSort = 10;
 

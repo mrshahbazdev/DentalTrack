@@ -13,7 +13,7 @@
             vertical-align: top;
             border: 0.5pt dashed #ccc;
         }
-        .qr svg { width: 20mm; height: 20mm; }
+        .qr img { width: 20mm; height: 20mm; }
         .order-num { font-weight: bold; font-size: 8pt; margin-top: 1mm; }
         .patient-ref { font-size: 6pt; color: #555; }
         .product-type { font-size: 6pt; color: #333; }
@@ -25,8 +25,8 @@
             <div class="row">
                 @foreach($row as $sticker)
                     <div class="cell">
-                        <div class="qr">{!! $sticker['qrSvg'] !!}</div>
-                        <div class="order-num">Order #{{ $sticker['order']->id }}</div>
+                        <div class="qr"><img src="{{ $sticker['qrImage'] }}" alt="QR"></div>
+                        <div class="order-num">{{ __('app.sticker.order') }} #{{ $sticker['order']->id }}</div>
                         @if($sticker['order']->patient_ref)
                             <div class="patient-ref">{{ $sticker['order']->patient_ref }}</div>
                         @endif
